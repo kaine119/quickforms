@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { INCREMENT_COUNTER } from '../../store/mutationTypes';
+import { RESPOND_COUNTER } from '../../store/mutationTypes';
 
 export default {
   props: ['field', 'responding'],
@@ -29,7 +29,7 @@ export default {
   methods: {
     submit(answer) {
       this.response = answer;
-      this.$store.commit(INCREMENT_COUNTER, { field: this.field, response: this.response });
+      this.$store.commit(RESPOND_COUNTER, { field: this.field, response: this.response });
     },
   },
 };
