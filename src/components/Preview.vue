@@ -1,19 +1,19 @@
 <template>
   <div>
-    <h1>Looking at form {{ id }}</h1>
-    <router-link to="/2342/preview">Go to form #232</router-link>
-          <component
-              v-for="field in fields"
-              :is="field.type"
-              :key="fields.indexOf(field)"
-              :field="field"
-              :responding='false'></component>
+    <h1>{{ title }}</h1>
+    <router-link to="respond" append v-show="fields.length !== 0">Respond</router-link>
+    <p v-show="fields.length === 0">Loading...</p>
+    <component
+        v-for="field in fields"
+        :is="field.type"
+        :key="fields.indexOf(field)"
+        :field="field"
+        :responding='false'></component>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-// import * as mutationTypes from '../store/mutationTypes';
 import COUNTER from './fields/Counter';
 import LIST_NAMES from './fields/NameList';
 
@@ -23,11 +23,16 @@ export default {
     LIST_NAMES,
   },
   mounted() {
+    // get forms for first mounted
+    // won't be run on subsequent navigations
+    this.$store.dispatch('getFormById', { id: this.id });
     // eslint-disable-next-line
     console.log(`Now looking at form #${this.id}`);
   },
   beforeRouteUpdate(to, from, next) {
+    // will only be run on subsequent navigations
     this.id = to.params.id;
+    this.$store.dispatch('getFormById', { id: this.id });
     next();
   },
   data() {
@@ -38,6 +43,7 @@ export default {
   computed: {
     ...mapGetters({
       fields: 'getAllFields',
+      title: 'getFormTitle',
     }),
   },
 };
@@ -45,19 +51,25 @@ export default {
 
 <style scoped>
   div {
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flex;
-    display: -o-flex;
     display: flex;
-    -ms-align-items: center;
     align-items: center;
-    /*justify-content: center;*/
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
-    -ms-flex-direction: column;
-    -o-flex-direction: column;
     flex-direction: column;
+  }
+  h1 {
+    margin-bottom: 0
+  }
+  h6 {
+    margin-top: 0;
+  }
+
+
+  @media screen and (max-width: 425px) {
+    div {
+      width: 80%;
+      align-items: left;
+      text-align: left;
+      margin-left: 1em;
+    }
   }
 
 </style>

@@ -7,7 +7,7 @@ function getRenderedElements(Component, propsData) {
   return vm.$el;
 }
 
-const field = { title: 'Test1', type: 'COUNTER', val: 32 };
+const field = { title: 'Test1', type: 'COUNTER', val: { yes: 32, no: 2 } };
 
 describe('Counter', () => {
   it('renders title correctly given a field', () => {
@@ -16,13 +16,13 @@ describe('Counter', () => {
     });
     expect(el.querySelector('.title').textContent).to.equal('Test1');
   });
-  it('only renders increment button when responding', () => {
+  it('only renders increment buttons when responding', () => {
     const el = getRenderedElements(Counter, {
       field,
       responding: true,
     });
-    expect(el.querySelector('.submit').textContent).to.equal('32');
-    // eslint-disable-next-line
+    expect(el.querySelector('.submit').children.length).to.equal(2);
+    // eslint-disable-next-line no-unused-expressions
     expect(el.querySelector('.value')).to.not.exist;
   });
   it('only renders value when not responding', () => {
@@ -30,7 +30,8 @@ describe('Counter', () => {
       field,
       responding: false,
     });
-    expect(el.querySelector('.value').textContent).to.equal('32');
+    expect(el.querySelector('#yes-value').textContent).to.equal('32');
+    expect(el.querySelector('#no-value').textContent).to.equal('2');
     // eslint-disable-next-line
     expect(el.querySelector('.submit')).to.not.exist;
   });

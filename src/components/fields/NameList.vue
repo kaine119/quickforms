@@ -42,6 +42,9 @@ div {
 input {
   width: 60%;
 }
+h3 {
+  margin-bottom: 0.25em;
+}
 .slide-enter, .slide-leave {
   /*transform: translate(60px, 15px);*/
   opacity: 0;

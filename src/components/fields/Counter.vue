@@ -1,9 +1,12 @@
 <template>
   <div>
     <p>
-      <span class="title">{{ field.title }}</span>
+      <h3 class="title">{{ field.title }}</h3>
       <!-- <button class='submit' v-if="responding" @click="increment">{{ field.val }}</button> -->
       <!-- <span class="value">{{field.val}}</span> -->
+      <div v-if="!responding">
+        Yes: <span class="value" id="yes-value">{{ field.val.yes }}</span> No: <span class="value" id="no-value">{{ field.val.no }}</span>
+      </div>
       <div v-if="responding" :class="response !== null ? 'disabled' : ''" class='submit'>
         <!-- the equality checks for true and false are to exclude cases where response === null. -->
         <button v-bind:class="response === true  ? 'green' : ''" @click="submit(true)">Yes</button>
@@ -52,6 +55,9 @@ export default {
   .disabled {
     opacity: 0.6;
     pointer-events: none;
+  }
+  h3 {
+    margin-bottom: 0.5em;
   }
 </style>
 

@@ -3,7 +3,9 @@
     <header>
     </header>
     <main>
-      <router-view></router-view>
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </main>
   </div>
 </template>
@@ -48,5 +50,11 @@ header span {
   font-weight: 400;
   box-sizing: border-box;
   padding-top: 16px;
+}
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+.fade-enter-active, .fade-leave-active {
+  transition: 0.5s opacity;
 }
 </style>

@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// TODO: remove
-import uuidV4 from 'uuid/v4';
 import mutations from './mutations';
+import actions from './actions';
 
 Vue.use(Vuex);
 
@@ -10,19 +9,16 @@ Vue.use(Vuex);
 // TODO: CURRENTLY A PLACEHOLDER
 // shape: { title, fields: [{ title, type, value }] }
 const initialState = {
-  // current form being previewed. matches :id in /:id/preview and /:id/respond.
-  // When responding, 'res' will be set to something other than null.
-  title: 'Class Chalet',
+  // // current form being previewed. matches :id in /:id/preview and /:id/respond.
+  // // When responding, 'res' will be set to something other than null.
+  title: '',
   id: '3234',
-  fields: [
-    { title: 'Participants', type: 'LIST_NAMES', val: ['Bob', 'Ben'], res: null, id: uuidV4() },
-    { title: 'Are you coming?', type: 'COUNTER', val: { yes: 0, no: 0 }, res: null, id: uuidV4() },
-    { title: 'Are you bringing food?', type: 'COUNTER', val: { yes: 0, no: 0 }, res: null, id: uuidV4() },
-  ],
+  fields: [],
 };
 
 const getters = {
   getAllFields: state => state.fields,
+  getFormTitle: state => state.title,
   getValueOf: state => (field) => {
     const index = state.fields.indexOf(field);
     return state.fields[index].val;
@@ -36,5 +32,6 @@ const getters = {
 export default new Vuex.Store({
   getters,
   mutations,
+  actions,
   state: initialState,
 });
