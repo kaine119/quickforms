@@ -1,13 +1,20 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Preview from '@/components/Preview';
-import Respond from '@/components/Respond';
-import Create from '@/components/Create';
+
+const Home = () => import('@/components/Home');
+const Preview = () => import('@/components/Preview');
+const Respond = () => import('@/components/Respond');
+const Create = () => import('@/components/Create');
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: '/create',
+      name: 'Create',
+      component: Create,
+    },
     {
       path: '/:id',
       name: 'Preview',
@@ -17,11 +24,6 @@ export default new Router({
       path: '/:id/respond',
       name: 'Respond',
       component: Respond,
-    },
-    {
-      path: '/create',
-      name: 'Create',
-      component: Create,
     },
   ],
 });
