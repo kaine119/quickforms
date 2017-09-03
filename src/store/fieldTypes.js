@@ -6,7 +6,7 @@ const LIST_NAMES = {
 };
 
 export function newListNames(title) {
-  return Object.create(LIST_NAMES, { title, id: uuidV4() });
+  return Object.create(LIST_NAMES, { title: { value: title }, id: { value: uuidV4() } });
 }
 
 const COUNTER = {
@@ -18,5 +18,5 @@ const COUNTER = {
 };
 
 export function newCounter(title) {
-  return Object.create(COUNTER, { title, id: uuidV4() });
+  return Object.create(COUNTER, { title: { value: title }, id: { value: uuidV4() } });
 }
