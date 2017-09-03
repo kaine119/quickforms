@@ -1,18 +1,16 @@
 <template>
   <div>
-    <p>
       <h3 class="title">{{ field.title }}</h3>
       <!-- <button class='submit' v-if="responding" @click="increment">{{ field.val }}</button> -->
       <!-- <span class="value">{{field.val}}</span> -->
       <div v-if="!responding">
         Yes: <span class="value" id="yes-value">{{ field.val.yes }}</span> No: <span class="value" id="no-value">{{ field.val.no }}</span>
       </div>
-      <div v-if="responding" :class="response !== null ? 'disabled' : ''" class='submit'>
+      <div v-if="responding" :class="response !== null || previewCreate ? 'disabled' : ''" class='submit'>
         <!-- the equality checks for true and false are to exclude cases where response === null. -->
         <button v-bind:class="response === true  ? 'green' : ''" @click="submit(true)">Yes</button>
         <button v-bind:class="response === false ? 'red' : ''"   @click="submit(false)">No</button>
       </div>
-    </p>
   </div>
 </template>
 
@@ -20,7 +18,7 @@
 import { RESPOND_COUNTER } from '../../store/mutationTypes';
 
 export default {
-  props: ['field', 'responding'],
+  props: ['field', 'responding', 'previewCreate'],
   name: 'COUNTER',
   data() {
     return {
