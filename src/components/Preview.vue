@@ -34,14 +34,6 @@ export default {
     // eslint-disable-next-line
     console.log(`Now looking at form #${this.id}`);
   },
-  beforeRouteEnter(to, from, next) {
-    if (from.name === 'Create') {
-      next((vm) => {
-        // eslint-disable-next-line no-param-reassign
-        vm.formNewlyCreated = true;
-      });
-    }
-  },
   beforeRouteUpdate(to, from, next) {
     // will only be run on subsequent navigations
     this.id = to.params.id;
@@ -64,8 +56,6 @@ export default {
     share() {
       if ('share' in navigator) {
         navigator.share({ title: `${this.title} - quickforms`, url: `quickforms${this.$route.fullPath}` });
-      } else {
-
       }
     },
   },
