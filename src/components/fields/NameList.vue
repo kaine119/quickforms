@@ -6,7 +6,7 @@
         └─ {{ item }}
       </p>
       <p v-if="responding" key='b'>
-        └─ <span v-if="!submitted">
+        └─ <span v-if="!submitted" :class="previewCreate ? 'disabled' : ''">
               <input type="text" v-model="response" @keyup.enter="submit">
               <button @click="submit">+</button>
            </span>
@@ -21,7 +21,7 @@ import { ADD_NAME_TO_LIST_NAMES } from '../../store/mutationTypes';
 
 export default {
   name: 'LIST_NAMES',
-  props: ['field', 'responding'],
+  props: ['field', 'responding', 'previewCreate'],
   data: () => ({ response: '', submitted: false }),
   methods: {
     submit() {
@@ -56,4 +56,10 @@ h3 {
 .slide-move {
   transition: all 0.1s ease-out;
 }
+
+.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
 </style>

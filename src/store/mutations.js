@@ -3,6 +3,14 @@ import * as fieldTypes from './fieldTypes';
 
 /* eslint-disable no-param-reassign, no-unused-vars */
 export default {
+  [mutationTypes.ADD_LIST_OF_NAMES](state, { title }) {
+    state.fields.push(fieldTypes.newListNames(title));
+  },
+
+  [mutationTypes.ADD_COUNTER](state, { title }) {
+    state.fields.push(fieldTypes.newCounter(title));
+  },
+
   [mutationTypes.ADD_NAME_TO_LIST_NAMES](state, { field, name }) {
     const index = state.fields.indexOf(field);
     state.fields[index].res = name;

@@ -17,8 +17,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import COUNTER from './fields/Counter';
-import LIST_NAMES from './fields/NameList';
+
+const COUNTER = () => import('./fields/Counter');
+const LIST_NAMES = () => import('./fields/NameList');
 
 export default {
   components: {
@@ -76,5 +77,7 @@ export default {
       margin-left: 1em;
     }
   }
-
+  button {
+    margin-top: 1em;
+  }
 </style>

@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div id="firstOnly">
+      <code>quickforms.com{{ this.$route.fullPath }}</code>
+      <button @click="share">Share this form</button>
+    </div>
     <h1>{{ title }}</h1>
     <router-link to="respond" append v-show="fields.length !== 0">Respond</router-link>
     <p v-show="fields.length === 0">Loading...</p>
@@ -14,8 +18,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import COUNTER from './fields/Counter';
-import LIST_NAMES from './fields/NameList';
+
+const COUNTER = () => import('./fields/Counter');
+const LIST_NAMES = () => import('./fields/NameList');
 
 export default {
   components: {
@@ -29,6 +34,14 @@ export default {
     // eslint-disable-next-line
     console.log(`Now looking at form #${this.id}`);
   },
+  beforeRouteEnter(to, from, next) {
+    if (from.name === 'Create') {
+      next((vm) => {
+        // eslint-disable-next-line no-param-reassign
+        vm.formNewlyCreated = true;
+      });
+    }
+  },
   beforeRouteUpdate(to, from, next) {
     // will only be run on subsequent navigations
     this.id = to.params.id;
@@ -38,6 +51,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
+      formNewlyCreated: false,
     };
   },
   computed: {
@@ -45,6 +59,15 @@ export default {
       fields: 'getAllFields',
       title: 'getFormTitle',
     }),
+  },
+  methods: {
+    share() {
+      if ('share' in navigator) {
+        navigator.share({ title: `${this.title} - quickforms`, url: `quickforms${this.$route.fullPath}` });
+      } else {
+
+      }
+    },
   },
 };
 </script>
@@ -62,6 +85,12 @@ export default {
     margin-top: 0;
   }
 
+  code {
+    padding: 0.5em;
+    border: 1px solid black;
+    background: #E5E9F0;
+    margin-bottom: 0.5em;
+  }
 
   @media screen and (max-width: 425px) {
     div {

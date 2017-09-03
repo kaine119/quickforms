@@ -38,3 +38,13 @@ export function putFormById(id, response) {
     }, 1000);
   });
 }
+
+export function postNewForm(form) {
+  // eslint-disable-next-line
+  form.id = Math.random().toString(36).substr(2, 8);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(form);
+    }, 1000);
+  });
+}
